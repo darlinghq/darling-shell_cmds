@@ -1,0 +1,75 @@
+project(shell_cmds)
+
+cmake_minimum_required(VERSION 2.4.0)
+
+if(COMMAND cmake_policy)
+	cmake_policy(SET CMP0003 NEW)
+endif(COMMAND cmake_policy)
+
+include(darling_exe)
+add_definitions(-DTARGET_OS_MAC=1)
+add_definitions(-D__APPLE__ -D__DYNAMIC__)
+# add_definitions(-DSUPPORT_UTMPX)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -nostdinc -ggdb -O0")
+set(CMAKE_EXE_LINKER_FLAGS "-nostdlib")
+
+include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/FreeBSD)
+include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/NetBSD)
+include_directories(${DARLING_TOP_DIRECTORY}/src/libc/gen)
+include_directories(${DARLING_TOP_DIRECTORY}/src/libc/darwin)
+include_directories(${DARLING_TOP_DIRECTORY}/src/libc/stdtime/FreeBSD)
+include_directories(${DARLING_TOP_DIRECTORY}/src/launchd/liblaunch)
+include_directories(${DARLING_TOP_DIRECTORY}/src/external/libdispatch)
+
+BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
+
+add_darling_executable(date date/date.c date/netdate.c date/vary.c)
+add_darling_executable(dirname dirname/dirname.c)
+add_darling_executable(echo echo/echo.c)
+add_darling_executable(pwd pwd/pwd.c)
+add_darling_executable(env env/env.c env/envopts.c)
+add_darling_executable(yes yes/yes.c)
+add_darling_executable(false false/false.c)
+add_darling_executable(true true/true.c)
+add_darling_executable(apply apply/apply.c)
+add_darling_executable(getopt getopt/getopt.c)
+add_darling_executable(hostname hostname/hostname.c)
+add_darling_executable(kill kill/kill.c)
+add_darling_executable(killall killall/killall.c)
+add_darling_executable(mktemp mktemp/mktemp.c)
+add_darling_executable(nice nice/nice.c)
+add_darling_executable(nohup nohup/nohup.c)
+add_darling_executable(printenv printenv/printenv.c)
+add_darling_executable(printf printf/printf.c)
+add_darling_executable(renice renice/renice.c)
+add_darling_executable(script script/script.c)
+add_darling_executable(seq seq/seq.c)
+add_darling_executable(shlock shlock/shlock.c)
+add_darling_executable(sleep sleep/sleep.c)
+add_darling_executable(systime systime/systime.c)
+add_darling_executable(tee tee/tee.c)
+add_darling_executable(test-bin test/test.c)
+set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
+add_darling_executable(time time/time.c)
+add_darling_executable(uname uname/uname.c)
+add_darling_executable(users users/users.c)
+add_darling_executable(what what/what.c)
+add_darling_executable(whereis whereis/whereis.c)
+add_darling_executable(which which/which.c)
+#add_darling_executable(who who/who.c who/utmpentry.c)
+add_darling_executable(xargs xargs/strnsubst.c xargs/xargs.c)
+add_darling_executable(find find/find.c  find/function.c  find/ls.c  find/main.c  find/misc.c  find/operator.c  find/option.c ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
+add_darling_executable(hexdump hexdump/conv.c  hexdump/display.c  hexdump/hexdump.c  hexdump/hexsyntax.c  hexdump/odsyntax.c  hexdump/parse.c)
+add_darling_executable(jot jot/jot.c)
+add_darling_executable(lastcomm lastcomm/lastcomm.c)
+add_darling_executable(logname logname/logname.c)
+add_darling_executable(path_helper path_helper/path_helper.c)
+
+install(TARGETS date echo env pwd yes dirname apply
+	hostname getopt true false kill killall mktemp
+	nice nohup printenv printf renice script seq
+	shlock sleep systime tee test-bin time uname
+	users what whereis which xargs find hexdump
+	jot lastcomm logname path_helper
+	DESTINATION libexec/darling/bin)
