@@ -12,7 +12,7 @@ add_definitions(-D__APPLE__ -D__DYNAMIC__)
 # add_definitions(-DSUPPORT_UTMPX)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -nostdinc -fPIC -ggdb -O0")
-set(CMAKE_EXE_LINKER_FLAGS "-nostdlib")
+set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
 
 include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/FreeBSD)
 include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/NetBSD)
