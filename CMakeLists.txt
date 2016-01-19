@@ -24,6 +24,9 @@ include_directories(${DARLING_TOP_DIRECTORY}/src/external/libdispatch)
 
 BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
 
+include(InstallSymlink)
+set(BINARY_PACKAGING_MODE ON)
+
 add_darling_executable(date date/date.c date/netdate.c date/vary.c)
 add_darling_executable(dirname dirname/dirname.c)
 add_darling_executable(echo echo/echo.c)
@@ -62,6 +65,7 @@ add_darling_executable(xargs xargs/strnsubst.c xargs/xargs.c)
 add_darling_executable(find find/find.c  find/function.c  find/ls.c  find/main.c  find/misc.c  find/operator.c  find/option.c ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
 add_darling_executable(hexdump hexdump/conv.c  hexdump/display.c  hexdump/hexdump.c  hexdump/hexsyntax.c  hexdump/odsyntax.c  hexdump/parse.c)
 add_darling_executable(jot jot/jot.c)
+add_darling_executable(id id/id.c)
 add_darling_executable(lastcomm lastcomm/lastcomm.c)
 add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
@@ -71,5 +75,8 @@ install(TARGETS date echo env pwd yes dirname apply
 	nice nohup printenv printf renice script seq
 	shlock sleep systime tee test-bin time uname
 	users what whereis which xargs find hexdump
-	jot lastcomm logname path_helper
+	jot lastcomm logname path_helper id
 	DESTINATION libexec/darling/bin)
+
+InstallSymlink(id libexec/darling/bin/groups)
+InstallSymlink(id libexec/darling/bin/whoami)
