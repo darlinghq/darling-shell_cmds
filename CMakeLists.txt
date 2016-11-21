@@ -71,7 +71,7 @@ add_darling_executable(lastcomm lastcomm/lastcomm.c)
 add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
 
-install(TARGETS date echo env pwd yes dirname apply
+install(TARGETS basename date echo env pwd yes dirname apply
 	hostname getopt true false kill killall mktemp
 	nice nohup printenv printf renice script seq
 	shlock sleep systime tee test-bin time uname
