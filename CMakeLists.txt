@@ -27,6 +27,7 @@ BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.
 include(InstallSymlink)
 set(BINARY_PACKAGING_MODE ON)
 
+add_darling_executable(basename basename/basename.c)
 add_darling_executable(date date/date.c date/netdate.c date/vary.c)
 add_darling_executable(dirname dirname/dirname.c)
 add_darling_executable(echo echo/echo.c)
@@ -70,7 +71,7 @@ add_darling_executable(lastcomm lastcomm/lastcomm.c)
 add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
 
-install(TARGETS date echo env pwd yes dirname apply
+install(TARGETS basename date echo env pwd yes dirname apply
 	hostname getopt true false kill killall mktemp
 	nice nohup printenv printf renice script seq
 	shlock sleep systime tee test-bin time uname
@@ -80,3 +81,69 @@ install(TARGETS date echo env pwd yes dirname apply
 
 InstallSymlink(id libexec/darling/bin/groups)
 InstallSymlink(id libexec/darling/bin/whoami)
+
+set(man1
+	alias/alias.1
+	alias/builtin.1
+	apply/apply.1
+	basename/basename.1
+	basename/dirname.1
+	date/date.1
+	echo/echo.1
+	env/env.1
+	expr/expr.1
+	false/false.1
+	find/find.1
+	getopt/getopt.1
+	hexdump/hexdump.1
+	hexdump/od.1
+	hostname/hostname.1
+	id/groups.1
+	id/id.1
+	id/whoami.1
+	jot/jot.1
+	kill/kill.1
+	killall/killall.1
+	lastcomm/lastcomm.1
+	locate/locate/locate.1
+	logname/logname.1
+	mktemp/mktemp.1
+	nice/nice.1
+	nohup/nohup.1
+	printenv/printenv.1
+	printf/printf.1
+	pwd/pwd.1
+	script/script.1
+	seq/seq.1
+	shlock/shlock.1
+	sleep/sleep.1
+	su/su.1
+	systime/systime.1
+	tee/tee.1
+	test/test.1
+	time/time.1
+	true/true.1
+	uname/uname.1
+	users/users.1
+	w/uptime.1
+	w/w.1
+	what/what.1
+	whereis/whereis.1
+	which/which.1
+	who/who.1
+	xargs/xargs.1
+	yes/yes.1
+)
+
+install(FILES ${man1} "test/[.1" DESTINATION libexec/darling/usr/share/man/man1)
+
+set(man8
+	chroot/chroot.8
+	locate/bigram/locate.bigram.8
+	locate/code/locate.code.8
+	locate/locate/locate.updatedb.8
+	path_helper/path_helper.8
+	renice/renice.8
+)
+
+install(FILES ${man8} DESTINATION libexec/darling/usr/share/man/man8)
