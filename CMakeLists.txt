@@ -27,6 +27,7 @@ BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.
 include(InstallSymlink)
 set(BINARY_PACKAGING_MODE ON)
 
+add_darling_executable(basename basename/basename.c)
 add_darling_executable(date date/date.c date/netdate.c date/vary.c)
 add_darling_executable(dirname dirname/dirname.c)
 add_darling_executable(echo echo/echo.c)
