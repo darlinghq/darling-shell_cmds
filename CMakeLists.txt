@@ -11,6 +11,10 @@ add_definitions(-DTARGET_OS_MAC=1)
 add_definitions(-D__APPLE__ -D__DYNAMIC__)
 # add_definitions(-DSUPPORT_UTMPX)
 
+add_definitions(
+	-Wno-incompatible-pointer-types
+)
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -nostdinc -fPIC -ggdb -O0")
 set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
 
