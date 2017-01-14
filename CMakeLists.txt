@@ -57,8 +57,8 @@ add_darling_executable(shlock shlock/shlock.c)
 add_darling_executable(sleep sleep/sleep.c)
 add_darling_executable(systime systime/systime.c)
 add_darling_executable(tee tee/tee.c)
-add_darling_executable(test-bin test/test.c)
-set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
+#add_darling_executable(test-bin test/test.c)
+#set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
 add_darling_executable(time time/time.c)
 add_darling_executable(uname uname/uname.c)
 add_darling_executable(users users/users.c)
@@ -75,16 +75,20 @@ add_darling_executable(lastcomm lastcomm/lastcomm.c)
 add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
 
-install(TARGETS basename date echo env pwd yes dirname apply
-	hostname getopt true false kill killall mktemp
-	nice nohup printenv printf renice script seq
-	shlock sleep systime tee test-bin time uname
-	users what whereis which xargs find hexdump
-	jot lastcomm logname path_helper id
+install(TARGETS date echo pwd kill sleep
 	DESTINATION libexec/darling/bin)
 
-InstallSymlink(id libexec/darling/bin/groups)
-InstallSymlink(id libexec/darling/bin/whoami)
+install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
+	nice printenv printf renice script seq systime shlock
+	tee time uname jot lastcomm logname
+	users what whereis xargs find hexdump
+	DESTINATION libexec/darling/usr/bin)
+
+install(TARGETS path_helper DESTINATION libexec/darling/usr/libexec
+	PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
+InstallSymlink(id libexec/darling/usr/bin/groups)
+InstallSymlink(id libexec/darling/usr/bin/whoami)
 
 set(man1
 	alias/alias.1
