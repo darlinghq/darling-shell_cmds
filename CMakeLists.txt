@@ -16,7 +16,6 @@ add_definitions(
 )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -nostdinc -fPIC -ggdb -O0")
-set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -Wl,--version-script=${DARLING_TOP_DIRECTORY}/darwin.map")
 
 include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/FreeBSD)
 include_directories(${DARLING_TOP_DIRECTORY}/src/libc/include/NetBSD)
