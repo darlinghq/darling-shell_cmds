@@ -78,7 +78,7 @@ install(TARGETS date echo pwd kill sleep
 	DESTINATION libexec/darling/bin)
 
 install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
-	nice printenv printf renice script seq systime shlock
+	nice printenv printf renice script seq systime shlock id
 	tee time uname jot lastcomm logname
 	users what whereis xargs find hexdump
 	DESTINATION libexec/darling/usr/bin)
