@@ -27,6 +27,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src/external/libdispatch)
 include_directories(${CMAKE_SOURCE_DIR}/src/kernel/libsyscall/wrappers/libproc)
 
 BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
+BISON_TARGET(Expr expr/expr.y ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 
 include(InstallSymlink)
 set(BINARY_PACKAGING_MODE ON)
@@ -74,8 +75,9 @@ add_darling_executable(id id/id.c)
 add_darling_executable(lastcomm lastcomm/lastcomm.c)
 add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
+add_darling_executable(expr ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 
-install(TARGETS date echo pwd kill sleep
+install(TARGETS date echo pwd kill sleep expr
 	DESTINATION libexec/darling/bin)
 
 install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
