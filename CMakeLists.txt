@@ -83,7 +83,7 @@ install(TARGETS date echo pwd kill sleep expr
 install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
 	nice printenv printf renice script seq systime shlock id
 	tee time uname jot lastcomm logname
-	users what whereis xargs find hexdump
+	users what whereis xargs find hexdump hostname
 	DESTINATION libexec/darling/usr/bin)
 
 install(TARGETS path_helper DESTINATION libexec/darling/usr/libexec
