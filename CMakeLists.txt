@@ -15,7 +15,9 @@ add_definitions(
 	-Wno-incompatible-pointer-types
 )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -nostdinc -fPIC -ggdb -O0")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -fPIC -ggdb -O0")
+
+add_definitions(-nostdinc)
 
 include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/FreeBSD)
 include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/NetBSD)
