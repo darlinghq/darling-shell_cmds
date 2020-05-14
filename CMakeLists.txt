@@ -17,15 +17,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D__DARWIN_UNIX03 -fPIC -ggdb -O0")
 
 add_definitions(-nostdinc)
 
-include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/FreeBSD)
-include_directories(${CMAKE_SOURCE_DIR}/src/libc/include/NetBSD)
-include_directories(${CMAKE_SOURCE_DIR}/src/libc/gen)
-include_directories(${CMAKE_SOURCE_DIR}/src/libc/darwin)
-include_directories(${CMAKE_SOURCE_DIR}/src/libc/stdtime/FreeBSD)
-include_directories(${CMAKE_SOURCE_DIR}/src/launchd/liblaunch)
-include_directories(${CMAKE_SOURCE_DIR}/src/external/libdispatch)
-include_directories(${CMAKE_SOURCE_DIR}/src/kernel/libsyscall/wrappers/libproc)
-
 BISON_TARGET(DateParser find/getdate.y ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
 BISON_TARGET(Expr expr/expr.y ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 
