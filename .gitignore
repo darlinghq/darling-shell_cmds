@@ -2,3 +2,6 @@
 xcuserdata/
 build/
 project.xcworkspace/
+
+gen/sh/mknodes
+gen/sh/mksyntax

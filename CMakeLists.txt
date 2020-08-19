@@ -6,8 +6,9 @@ if(COMMAND cmake_policy)
 	cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
 
-include(darling_exe)
-# add_definitions(-DSUPPORT_UTMPX)
+add_compile_definitions(
+	__FBSDID=__RCSID
+)
 
 add_definitions(
 	-Wno-incompatible-pointer-types
@@ -49,15 +50,21 @@ add_darling_executable(shlock shlock/shlock.c)
 add_darling_executable(sleep sleep/sleep.c)
 add_darling_executable(systime systime/systime.c)
 add_darling_executable(tee tee/tee.c)
-#add_darling_executable(test-bin test/test.c)
-#set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
+add_darling_executable(test-bin test/test.c)
+set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
 add_darling_executable(time time/time.c)
 add_darling_executable(uname uname/uname.c)
 add_darling_executable(users users/users.c)
 add_darling_executable(what what/what.c)
 add_darling_executable(whereis whereis/whereis.c)
 add_darling_executable(which which/which.c)
-#add_darling_executable(who who/who.c who/utmpentry.c)
+
+add_darling_executable(who who/who.c who/utmpentry.c)
+target_compile_definitions(who PRIVATE
+	_UTMPX_COMPAT
+	SUPPORT_UTMPX
+)
+
 add_darling_executable(xargs xargs/strnsubst.c xargs/xargs.c)
 add_darling_executable(find find/find.c  find/function.c  find/ls.c  find/main.c  find/misc.c  find/operator.c  find/option.c ${CMAKE_CURRENT_BINARY_DIR}/find_getdate.c)
 add_darling_executable(hexdump hexdump/conv.c  hexdump/display.c  hexdump/hexdump.c  hexdump/hexsyntax.c  hexdump/odsyntax.c  hexdump/parse.c)
@@ -68,13 +75,20 @@ add_darling_executable(logname logname/logname.c)
 add_darling_executable(path_helper path_helper/path_helper.c)
 add_darling_executable(expr ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 
-install(TARGETS date echo pwd kill sleep expr
+# Apple now includes ash (predecessor of dash), but it seems they don't install it
+# according to `sh.xcconfig`, there are plans to replace `/bin/sh` with ash, but for now they still use the bash version
+# so for now, if users want this, they have to use ADDITIONAL_PACKAGES
+if(ADDITIONAL_PACKAGES)
+	add_subdirectory(sh)
+endif()
+
+install(TARGETS date echo pwd kill sleep expr test-bin
 	DESTINATION libexec/darling/bin)
 
 install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
 	nice printenv printf renice script seq systime shlock id
 	tee time uname jot lastcomm logname
-	users what whereis xargs find hexdump hostname yes
+	users what whereis xargs find hexdump hostname yes who
 	DESTINATION libexec/darling/usr/bin)
 
 install(TARGETS path_helper DESTINATION libexec/darling/usr/libexec
