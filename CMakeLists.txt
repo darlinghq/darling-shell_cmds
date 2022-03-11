@@ -25,6 +25,7 @@ include(InstallSymlink)
 set(BINARY_PACKAGING_MODE ON)
 
 add_darling_executable(basename basename/basename.c)
+add_darling_executable(chroot chroot/chroot.c)
 add_darling_executable(date date/date.c date/netdate.c date/vary.c)
 add_darling_executable(dirname dirname/dirname.c)
 add_darling_executable(echo echo/echo.c)
@@ -93,6 +94,8 @@ install(TARGETS env which basename dirname apply nohup getopt true false killall
 
 install(TARGETS path_helper DESTINATION libexec/darling/usr/libexec
 	PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+
+install(TARGETS chroot DESTINATION libexec/darling/usr/sbin)
 
 InstallSymlink(id libexec/darling/usr/bin/groups)
 InstallSymlink(id libexec/darling/usr/bin/whoami)
