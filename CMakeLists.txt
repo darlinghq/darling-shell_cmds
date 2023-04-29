@@ -78,8 +78,8 @@ add_darling_executable(expr ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 
 # Apple now includes ash (predecessor of dash), but it seems they don't install it
 # according to `sh.xcconfig`, there are plans to replace `/bin/sh` with ash, but for now they still use the bash version
-# so for now, if users want this, they have to use ADDITIONAL_PACKAGES
-if(ADDITIONAL_PACKAGES)
+# so for now, if users want this, they have to use COMPONENT_cli_extra
+if (COMPONENT_cli_extra)
 	add_subdirectory(sh)
 endif()
 
