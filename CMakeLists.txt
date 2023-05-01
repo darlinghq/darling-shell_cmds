@@ -80,7 +80,9 @@ add_darling_executable(expr ${CMAKE_CURRENT_BINARY_DIR}/expr.c)
 # according to `sh.xcconfig`, there are plans to replace `/bin/sh` with ash, but for now they still use the bash version
 # so for now, if users want this, they have to use COMPONENT_cli_extra
 if (COMPONENT_cli_extra)
+	set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "cli_extra")
 	add_subdirectory(sh)
+	set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "cli")
 endif()
 
 install(TARGETS date echo pwd kill sleep expr test-bin
