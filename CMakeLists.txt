@@ -99,6 +99,7 @@ install(TARGETS path_helper DESTINATION libexec/darling/usr/libexec
 
 install(TARGETS chroot DESTINATION libexec/darling/usr/sbin)
 
+InstallSymlink(hexdump libexec/darling/usr/bin/od)
 InstallSymlink(id libexec/darling/usr/bin/groups)
 InstallSymlink(id libexec/darling/usr/bin/whoami)
 
