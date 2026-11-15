@@ -52,7 +52,10 @@ add_darling_executable(sleep sleep/sleep.c)
 add_darling_executable(systime systime/systime.c)
 add_darling_executable(tee tee/tee.c)
 add_darling_executable(test-bin test/test.c)
-set_target_properties(test-bin PROPERTIES OUTPUT_NAME test)
+# The executable is installed as `test`. CMake would normally use OUTPUT_NAME
+# for that, but a target output named `test` collides with the `test` utility
+# target that enables ctest, which Ninja rejects. Keep a distinct build output
+# name and rename the file during installation instead.
 add_darling_executable(time time/time.c)
 add_darling_executable(uname uname/uname.c)
 add_darling_executable(users users/users.c)
@@ -85,8 +88,10 @@ if (COMPONENT_cli_extra)
 	set(CMAKE_INSTALL_DEFAULT_COMPONENT_NAME "cli")
 endif()
 
-install(TARGETS date echo pwd kill sleep expr test-bin
+install(TARGETS date echo pwd kill sleep expr
 	DESTINATION libexec/darling/bin)
+install(PROGRAMS $<TARGET_FILE:test-bin>
+	DESTINATION libexec/darling/bin RENAME test)
 
 install(TARGETS env which basename dirname apply nohup getopt true false killall mktemp
 	nice printenv printf renice script seq systime shlock id
